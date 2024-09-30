@@ -1,33 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="vendor/autoload.php"
-         colors="true"
->
-    <testsuites>
-        <testsuite name="Unit">
-            <directory>tests/Unit</directory>
-        </testsuite>
-        <testsuite name="Feature">
-            <directory>tests/Feature</directory>
-        </testsuite>
-    </testsuites>
-    <source>
-        <include>
-            <directory>app</directory>
-        </include>
-    </source>
-    <php>
-        <env name="APP_ENV" value="testing"/>
-        <env name="APP_MAINTENANCE_DRIVER" value="file"/>
-        <env name="BCRYPT_ROUNDS" value="4"/>
-        <env name="CACHE_STORE" value="array"/>
-        <!-- <env name="DB_CONNECTION" value="sqlite"/> -->
-        <!-- <env name="DB_DATABASE" value=":memory:"/> -->
-        <env name="MAIL_MAILER" value="array"/>
-        <env name="PULSE_ENABLED" value="false"/>
-        <env name="QUEUE_CONNECTION" value="sync"/>
-        <env name="SESSION_DRIVER" value="array"/>
-        <env name="TELESCOPE_ENABLED" value="false"/>
-    </php>
-</phpunit>
+<?php
+// Database connection parameters
+$servername = "database.c50ua0w24hma.ap-south-1.rds.amazonaws.com"; // Your RDS endpoint
+$username = "admin"; // Your database username
+$password = "Pxt7PJCBEZVqUQIUZNTU"; // Your database password
+$db_name = "car_shop"; // Name of the database you want to create
+
+// Create connection
+$conn = new mysqli($servername, $username, $password);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// SQL to create database
+$sql = "CREATE DATABASE $db_name";
+
+// Attempt to create the database
+if ($conn->query($sql) === TRUE) {
+    echo "Database '$db_name' created successfully.";
+} else {
+    echo "Error creating database: " . $conn->error;
+}
+
+// Close the connection
+$conn->close();
+?>
+
+
